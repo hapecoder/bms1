@@ -27,7 +27,7 @@
 
     <style>
         .batteryIcon {
-            margin: 100px auto;
+            margin: 50px auto;
             width: 100px;
         }
 
@@ -49,8 +49,9 @@
         .batteryName {
             position: relative;
             top: -30px;
-
-            font-size: 12px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bolder;
             margin: 0px;
 
 
@@ -74,8 +75,11 @@
 
         .progress {
             height: 32px;
-            margin-top: -37px
-            
+            margin-top: -39px
+        }
+
+        .card {
+            height: 240px
         }
     </style>
 </head>
@@ -84,8 +88,8 @@
     <div class="wrapper">
         <div class="sidebar" data-background-color="" data-active-color="danger">
             <!--
-			Tip 1: you can change the color of the sidebar's background using: data-background-color="white | brown"
-			Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+			data-background-color="white | brown"
+			data-active-color="primary | info | success | warning | danger"
 		-->
             <div class="logo">
                 <a href="#" class="simple-text">
@@ -115,32 +119,31 @@
                         <div class="collapse" id="charts" role="navigation" aria-expanded="false" style="height: 0px;">
                             <ul class="nav">
                                 <li>
-                                    <a href="#">前8节</a>
+                                    <a href="#">16节</a>
                                 </li>
-                                <li>
-                                    <a href="battery2.html">后8节</a>
-                                </li>
+
                             </ul>
                         </div>
                     </li>
                     <li>
                         <a href="table.html">
                             <i class="ti-widget"></i>
-                            <p>列表</p>
+                            <p>历史组端</p>
                         </a>
                     </li>
                     <li>
                         <a data-toggle="collapse" href="#ui-elements" class="collapsed" aria-expanded="false">
                             <i class="ti-package"></i>
-                            <p>图表
+                            <p>历史单体电池
                                 <b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="ui-elements" role="navigation" aria-expanded="false"
                             style="height: 0px;">
                             <ul class="nav">
-                                <li><a href="#">电压</a></li>
-                                <li><a href="#">电流</a></li>
+                                <li><a href="tubiaov.html">电压</a></li>
+                                <li><a href="tubiaoc.html">电流</a></li>
+                                <li><a href="tubiaot.html">温度</a></li>
                                 <li><a href="tubiao.html">SOC</a></li>
 
                             </ul>
@@ -180,7 +183,12 @@
                                         <b class="caret"></b>
                                     </p>
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">You have 1 new warning</a>
+                                    </li>
 
+                                </ul>
                             </li>
                             <li>
                                 <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
@@ -202,11 +210,20 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-3 col-lg-offset-1" >
-                            <h5>当前电池soc方差：<a id="variance">0.22</a></h5>
+                        <div class="col-lg-4 ">
+                            <h5>当前单体电池最大soc差值：<a id="variance"></a></h5>
                         </div>
-                        <div class="col-lg-2 col-lg-offset-6" >
-                            <button class="btn btn-primary" >均衡</button>
+                        <div class="col-lg-3  col-lg-offset-2 " id="actstate" style="font-size: 18px;"
+                            data-toggle="tooltip" title="点击关闭主动均衡">
+                            <!-- 均衡显示 -->
+                        </div>
+
+                        <div class="col-lg-1 " >
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+                                id="activebutton">主动均衡</button>
+                        </div>
+                        <div class="col-lg-1  col-lg-offset-0" style="left:15px">
+                            <button class="btn btn-primary">被动均衡</button>
                         </div>
                     </div>
                     <div class="row">
@@ -219,13 +236,14 @@
                                                 <p class="batteryName">电池1</p>
                                                  <div class="progress">
                                                     <div class="progress-bar progress-bar-striped progress-bar-animated "
-                                                        style="width:40%;" id="battery1"></div>
+                                                        style="width:100%;" id="battery1"></div>
                                                 </div>
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u1'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i1'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u1'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t1'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh1'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -241,13 +259,15 @@
                                                 <p class="batteryName">电池2</p>
                                                  <div class="progress">
                                                     <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                                        style="width:40%;" id="battery2"></div>
+                                                        style="width:99%;" id="battery2"></div>
                                                 </div>
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u2'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i2'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u2'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t2'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh2'>100</a>%</p>
+
                                         </div>
                                     </div>
                                 </div>
@@ -263,13 +283,14 @@
                                                 <p class="batteryName">电池3</p>
                                                  <div class="progress">
                                                     <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                                        style="width:40%" id="battery3"></div>
+                                                        style="width:99%" id="battery3"></div>
                                                 </div>
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u3'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i3'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u3'>3.358</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t3'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh3'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -285,13 +306,14 @@
                                                 <p class="batteryName">电池4</p>
                                                  <div class="progress">
                                                     <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                                        style="width:40%;" id="battery4">40%</div>
+                                                        style="width:99%;" id="battery4">40%</div>
                                                 </div>
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u4'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i4'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u4'>3.357</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t4'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh4'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -309,13 +331,14 @@
                                                 <p class="batteryName">电池5</p>
                                                  <div class="progress">
                                                     <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                                        style="width:40%;" id="battery5"></div>
+                                                        style="width:99%;" id="battery5"></div>
                                                 </div>
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u5'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i5'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u5'>3.358</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t5'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh5'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -331,13 +354,14 @@
                                                 <p class="batteryName">电池6</p>
                                                  <div class="progress">
                                                     <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                                        style="width:40%;" id="battery6"></div>
+                                                        style="width:99%;" id="battery6"></div>
                                                 </div>
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u6'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i6'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u6'>3.358</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t6'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh6'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -353,13 +377,14 @@
                                                 <p class="batteryName">电池7</p>
                                                  <div class="progress">
                                                     <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                                        style="width:40%;" id="battery7"></div>
+                                                        style="width:99%;" id="battery7"></div>
                                                 </div>
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u7'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i7'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u7'>3.357</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t7'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh7'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -380,8 +405,9 @@
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u8'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i8'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u8'>3.357</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t8'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh8'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -404,8 +430,9 @@
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u9'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i9'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u9'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t9'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh9'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -426,8 +453,9 @@
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u10'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i10'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u10'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t10'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh10'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -448,8 +476,9 @@
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u11'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i11'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u11'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t11'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh11'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -470,8 +499,9 @@
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u12'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i12'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u12'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t12'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh12'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -494,8 +524,9 @@
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u13'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i13'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u13'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t13'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh13'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -516,8 +547,9 @@
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u14'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i14'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u14'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t14'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh14'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -538,8 +570,9 @@
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u15'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i15'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u15'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t15'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh15'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -560,8 +593,9 @@
                                                         <span class="batteryIconHead"></span>
                                                     
                                             </span>
-                                            <p class="batteryData">电压：<a id='u16'>50</a>V</p>
-                                            <p class="batteryData">电流：<a Id='i16'>-5</a>A</p>
+                                            <p class="batteryData">电压：<a id='u16'>3.3</a>V</p>
+                                            <p class="batteryData">温度：<a Id='t16'>18</a>℃</p>
+                                            <p class="batteryData">SOH：<a Id='soh16'>100</a>%</p>
                                         </div>
                                     </div>
                                 </div>
@@ -575,32 +609,13 @@
                 <div class="container-fluid">
                     <nav class="pull-left">
                         <ul>
-                            <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Company
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Portfolio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Blog
-                                </a>
-                            </li>
+
                         </ul>
                     </nav>
                     <p class="copyright pull-right">
                         &copy;
                         <script>
-                            document.write(new Date().getFullYear())
+                            document.write(new Date().getFullYear());
                         </script>
 
                     </p>
@@ -608,6 +623,29 @@
             </footer>
         </div>
 
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">选择需要主动均衡的两个电池</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <p> 电池
+                        <input type="number" max="16" min="1" maxlength="2" value="1" id="s1"/>
+                        与电池
+                        <input type="number" max="16" min="1" maxlength="2" value="2" id="s2"/>
+                        进行均衡
+                    </p>
+                    <small class="text-info">已自动选择差值最大的电池</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="actchoose">确定</button>
+                </div>
+            </div>
+        </div>
     </div>
     <!--   Core JS Files   -->
     <script src="assets/js/battery.js"></script>
@@ -651,13 +689,6 @@
 
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            demo.initCirclePercentage();
-
-        });
-    </script>
 </body>
 
 </html>

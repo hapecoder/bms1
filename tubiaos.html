@@ -154,23 +154,21 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-lg-1 ">
-                          
-                                <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#bModal">
-                                    选择电池
-                                </button>
-                                
-                            
+                        <div class="col-lg-1" style="margin-top:25px ;">
+                            <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#bModal">
+                                选择电池
+                            </button>
                         </div>
-                        <div class="col-lg-1 " style="left:1%">
+                        <div class="col-lg-2 " style="left:1%;margin-top:25px">
                             <div class="dropdown">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                     选择模型
                                 </button>
+                                <a id="method_name">DLSTM</a>
                                 <div class="dropdown-menu">
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#" class="dropdown-item">卡尔曼</a>
+                                            <a href="#" class="dropdown-item">EKF</a>
                                         </li>
                                         <li>
                                             <a href="#" class="dropdown-item">BP</a>
@@ -184,8 +182,24 @@
                                     </ul>
                                 </div>
                             </div>
+                            
                         </div>
-                        <div class="col-lg-2 col-lg-offset-8 " >
+                        <div class="col-lg-7">
+                            <div class="form-group col-lg-4">
+                                <label class="label-control">开始时间</label>
+                                <input type="text" class="form-control datetimepicker" value="2019/11/28 13"
+                                    id="timestart" />
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="label-control">结束时间</label>
+                                <input type="text" class="form-control datetimepicker" value="2019/11/28 14"
+                                    id="timeend" />
+                            </div>
+                            <div class="col-md-3 " style="margin-top:25px ;">
+                                <button class="btn btn-round" id="timechoose">时间筛选</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-2  " style="margin-top:25px ;">
                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                 <div>
                                     <span class="btn btn-default btn-fill btn-file">
@@ -193,8 +207,9 @@
                                         <span class="fileinput-exists">更换</span>
                                         <input type="file" name="..." />
                                     </span>
-                                    
-                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i>移除 </a>
+
+                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                        data-dismiss="fileinput"><i class="fa fa-times"></i>移除 </a>
                                 </div>
                             </div>
                         </div>
@@ -244,7 +259,7 @@
                     </div>
                     <div class="modal-body text-center">
                         <p> 电池
-                            <input type="number" max="16" min="1" maxlength="2" value="1" id="s1"/>
+                            <input type="number" max="16" min="1" maxlength="2" value="1" id="s1" />
                         </p>
                     </div>
                     <div class="modal-footer">
@@ -264,7 +279,7 @@
         <!-- Forms Validations Plugin -->
         <script src="assets/vendors/jquery.validate.min.js"></script>
 
-
+        <script src="assets/vendors/moment.min.js"></script>
 
         <!--  Plugin for the Wizard -->
 
@@ -272,7 +287,8 @@
 
         <script src="assets/vendors/jquery-jvectormap.js"></script>
 
-
+        <!-- DateTimePicker Plugin -->
+        <script src="assets/vendors/bootstrap-datetimepicker.js"></script>
         <!-- Circle Percentage-chart -->
         <script src="assets/js/jquery.easypiechart.min.js"></script>
 
@@ -293,7 +309,7 @@
         <script src="assets/js/charts/chartjs-charts.js"></script>
 
         <script src="assets/js/highcharts.js"></script>
-        <script src="assets/js/tubiao.js"></script>
+        <script src="assets/js/tubiaos.js"></script>
 
 
 </body>

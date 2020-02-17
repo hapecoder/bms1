@@ -1,89 +1,137 @@
-var gvolt = []
-var gcurr = []
-var gtemp = []
-var gsoc = []
-var url = "http://10.115.120.21:8081/api/v1/group/page";
-var reqtime = 1
-var getdata = function () {
-    reqtime++;
-    fetch(url + "?page=" + reqtime + "&size=10", {
-            method: 'get'
-        }).then(response => response.json()).then(data => data.data.data)
-        .then(function (data) {
-            console.log(data);
-            for (i = 0; i < 10; i++) {
-                gvolt.push(data[i].groupVolt);
-                gcurr.push(data[i].groupCurr);
-                gtemp.push(data[i].groupTemp);
-                gsoc.push(data[i].groupSoc);
-            }
-        })
-        .catch(err => console.log(err));
+// var B1soc = []
+// var B1soh = []
+// var B1temp = []
+// var B1volt = []
+// var url1 = "http://10.115.120.137:8081/api/v1/B1/page";
+// var B2soc = []
+// var B2soh = []
+// var B2temp = []
+// var B2volt = []
+// var url2 = "http://10.115.120.137:8081/api/v1/B2/page";
+var m = 17
+var n = 17045
+var Bsoc = new Array();
+var Bsoh = new Array();
+var Btemp = new Array();
+var Bvolt = new Array();
+for (var i = 0; i < m; i++) {
+    Bsoc[i] = new Array();
+    Bsoh[i] = new Array();
+    Btemp[i] = new Array();
+    Bvolt[i] = new Array();
+}
+var data ={
+    "startDateTime":"2019-11-28 13:39:00",
+    "endDateTime":"2019-11-28 14:47:00",
+    "did":"1"
 }
 
+var q=0
+var getdata = function () {
+
+    for (let did = 1; did < 17; did++) {
+        data.did = did;
+        debugger
+        fetch("http://10.115.120.178:8081/api/v1/B/search", {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(response => response.json()).then(data => data.data)
+            .then(function (data) {
+
+                for (i = q; i < q+10; i++) {
+                    Bvolt[did].push(data[i].volt);
+                    Bsoh[did].push(data[i].soh);
+                    Btemp[did].push(data[i].temp);
+                    Bsoc[did].push(data[i].soc);
+                }
+            })
+            .catch(err => console.log(err));
+    }
+    q=q+10
+    // fetch(url1 + "?page=" + reqtime + "&size=10", {
+    //         method: 'get'
+    //     }).then(response => response.json()).then(data => data.data.data)
+    //     .then(function (data) {
+    //         console.log(data);
+    //         for (i = 0; i < 10; i++) {
+    //             B1volt.push(data[i].volt);
+    //             B1soh.push(data[i].soh);
+    //             B1temp.push(data[i].temp);
+    //             B1soc.push(data[i].soc);
+    //         }
+    //     })
+    //     .catch(err => console.log(err));
+
+    // fetch(url2 + "?page=" + reqtime + "&size=10", {
+    //         method: 'get'
+    //     }).then(response => response.json()).then(data => data.data.data)
+    //     .then(function (data) {
+    //         console.log(data);
+    //         for (i = 0; i < 10; i++) {
+    //             B2volt.push(data[i].volt);
+    //             B2soh.push(data[i].soh);
+    //             B2temp.push(data[i].temp);
+    //             B2soc.push(data[i].soc);
+    //         }
+    //     })
+    //     .catch(err => console.log(err));
+}
+
+var id = 0;
 
 
 //窗体加载
 window.onload = function () {
     this.getdata();
-    testBegin(0);
+    $("#actchoose").click(function () {
+        $("#actstate").text("电池" + $("#s1").val() + "与电池" + $("#s2").val() + "进行均衡");
+    });
+    $("#actstate").click(function () {
+        $("#actstate").text("");
+    });
+    $('[data-toggle="tooltip"]').tooltip(); //提示框
+    setInterval(update, 1000)
+
 }
 //测试开始
-function testBegin(val) {
-
-    var bat7 = document.getElementById("battery7");
-
-    for (var i = val; i <= 100; i++) {
-
-
-        cname7 = Findcname(i);
-        bat7.style.setProperty('width', i + '%');
-        bat7.className = cname7;
-        bat7.innerText = i + '%';
+function update() {
+    var x = id
+    if (x % 9 == 0) {
+        getdata();
+    }
+    var soclist = [];
+    for (let did = 1; did < 17; did++) {
 
 
-        window.setTimeout("testBegin(" + ++i + ")", 200);
-        break
+        var soc = Bsoc[did][x];
+        // if (soc > 100) {
+        //     soc = 100
+        // };
+        soclist.push(soc);
+        $('#battery' + did).css("width", soc + "%");
+        $('#battery' + did).attr("class", Findcname(soc))
+        $('#battery' + did).text(soc + "%")
+
+        var u = Bvolt[did][x];
+        var s = Bsoh[did][x];
+        var t = Btemp[did][x];
+        $('#u' + did).text(u);
+        $('#t' + did).text(t);
+        $('#soh' + did).text(s);
     }
 
-
-    var bat1 = document.getElementById("battery1");
-    var soc1 = gsoc[1];
-    var u1 = gvolt[1];
-    var i1 = gcurr[1];
-    bat1.style.setProperty('width', soc1 + '%');
-    bat1.className = Findcname(soc1);
-    bat1.innerText = soc1 + '%';
-    $('#u1').text(u1);
-    $('#i1').text(i1);
-
-    var bat2 = document.getElementById("battery2");
-    var soc2 = gsoc[2];
-    var u2 = gvolt[2];
-    var i2 = gcurr[2];
-    bat2.style.setProperty('width', soc2 + '%');
-    bat2.className = Findcname(soc2);
-    bat2.innerText = soc2 + '%';
-    $('#u2').text(u2);
-    $('#i2').text(i2);
-
-    var bat3 = document.getElementById("battery3");
-    var soc3 = gsoc[3];
-    var u3 = gvolt[3];
-    var i3 = gcurr[3];
-    bat3.style.setProperty('width', soc3 + '%');
-    bat3.className = Findcname(soc3);
-    bat3.innerText = soc3 + '%';
-    $('#u3').text(u3);
-    $('#i3').text(i3);
-
-
-    var bat8 = document.getElementById("battery8");
-    bat8.style.setProperty('width', '99%');
-    bat8.className = 'progress-bar progress-bar-striped progress-bar-animated bg-success';
-    bat8.innerText = '99%';
-
-
+    let max=eval("Math.max(" +soclist.toString()+")");
+    let min=eval("Math.min(" +soclist.toString()+")");
+    let socv=(max-min).toFixed(4);
+    let maxindex=soclist.indexOf(max);
+    let minindex=soclist.indexOf(min);
+    $('#variance').text(socv)
+    $("#s1").attr("value",maxindex)
+    $("#s2").attr("value",minindex)
+    id++;
 
 
 }

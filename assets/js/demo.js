@@ -287,6 +287,7 @@ var demo = {
 
     initFormExtendedDatetimepickers: function(){
         $('.datetimepicker').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:SS',
             icons: {
                 time: "fa fa-clock-o",
                 date: "fa fa-calendar",

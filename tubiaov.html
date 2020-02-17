@@ -65,7 +65,7 @@
                                 <li>
                                     <a href="battery1.html">16节</a>
                                 </li>
-
+                    
                             </ul>
                         </div>
                     </li>
@@ -154,48 +154,22 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-lg-1 ">
-                          
-                                <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#bModal">
-                                    选择电池
-                                </button>
-                                
-                            
-                        </div>
-                        <div class="col-lg-1 " style="left:1%">
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                    选择模型
-                                </button>
-                                <div class="dropdown-menu">
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#" class="dropdown-item">卡尔曼</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item">BP</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item">LSTM</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item">DLSTM</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-lg-offset-8 " >
-                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                <div>
-                                    <span class="btn btn-default btn-fill btn-file">
-                                        <span class="fileinput-new">导入SOC真值</span>
-                                        <span class="fileinput-exists">更换</span>
-                                        <input type="file" name="..." />
-                                    </span>
-                                    
-                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i>移除 </a>
-                                </div>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                选择电池
+                            </button>
+                            <div class="dropdown-menu">
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#" class="dropdown-item">1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="dropdown-item">2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="dropdown-item">3</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -205,10 +179,7 @@
 
                                 <div id="container"></div>
                             </div>
-                            <div class="card" style="margin-top: 50px;">
-
-                                <div id="container2"></div>
-                            </div>
+                            
                         </div>
 
 
@@ -224,7 +195,7 @@
                         <p class="copyright pull-right">
                             &copy;
                             <script>
-                                document.write(new Date().getFullYear());
+                                document.write(new Date().getFullYear())
                             </script>
 
                         </p>
@@ -234,25 +205,7 @@
 
         </div>
 
-        <div class="modal fade" id="bModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">选择要查看的电池</h4>
-                    </div>
-                    <div class="modal-body text-center">
-                        <p> 电池
-                            <input type="number" max="16" min="1" maxlength="2" value="1" id="s1"/>
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="bchoose">确定</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
 
 
@@ -293,7 +246,7 @@
         <script src="assets/js/charts/chartjs-charts.js"></script>
 
         <script src="assets/js/highcharts.js"></script>
-        <script src="assets/js/tubiao.js"></script>
+        <script src="assets/js/tubiaov.js"></script>
 
 
 </body>

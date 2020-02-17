@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh">
 
 <head>
     <meta charset="utf-8">
@@ -63,32 +63,31 @@
                         <div class="collapse" id="charts" role="navigation" aria-expanded="false" style="height: 0px;">
                             <ul class="nav">
                                 <li>
-                                    <a href="battery1.html">前8节</a>
+                                    <a href="battery1.html">16节</a>
                                 </li>
-                                <li>
-                                    <a href="battery2.html">后8节</a>
-                                </li>
+
                             </ul>
                         </div>
                     </li>
                     <li class="active">
                         <a href="table.html">
                             <i class="ti-widget"></i>
-                            <p>列表</p>
+                            <p>历史组端</p>
                         </a>
                     </li>
                     <li>
                         <a data-toggle="collapse" href="#ui-elements" class="collapsed" aria-expanded="false">
                             <i class="ti-package"></i>
-                            <p>图表
+                            <p>历史单体电池
                                 <b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="ui-elements" role="navigation" aria-expanded="false"
                             style="height: 0px;">
                             <ul class="nav">
-                                <li><a href="#">电压</a></li>
-                                <li><a href="#">电流</a></li>
+                                <li><a href="tubiaov.html">电压</a></li>
+                                <li><a href="tubiaoc.html">电流</a></li>
+                                <li><a href="tubiaot.html">温度</a></li>
                                 <li><a href="tubiao.html">SOC</a></li>
 
                             </ul>
@@ -129,7 +128,12 @@
                                         <b class="caret"></b>
                                     </p>
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">You have 1 new warning</a>
+                                    </li>
 
+                                </ul>
                             </li>
                             <li>
                                 <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
@@ -156,7 +160,19 @@
                                 <div class="content">
                                     <h4 class="title">DataTables</h4>
                                     <div class="toolbar">
-                                        <!--        Here you can write extra buttons/actions for the toolbar              -->
+                                        <div class="form-group col-lg-4">
+                                            <label class="label-control">开始时间</label>
+                                            <input type="text" class="form-control datetimepicker" value="2019/11/28 13"
+                                                id="timestart" />
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label class="label-control">结束时间</label>
+                                            <input type="text" class="form-control datetimepicker" value="2019/11/28 14"
+                                                id="timeend" />
+                                        </div>
+                                        <div class="col-md-3 " style="margin-top:25px ;">
+                                            <button class="btn btn-round" id="timechoose">时间筛选</button>
+                                        </div>
                                     </div>
                                     <div class="material-datatables">
                                         <table id="datatables" class="table table-striped table-no-bordered table-hover"
@@ -167,11 +183,12 @@
                                                     <th>电压</th>
                                                     <th>温度</th>
                                                     <th>SOC</th>
-                                                    <th>时间</th>
+                                                    <th>SOH</th>
+                                                    <!-- <th>时间</th> -->
 
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="tablebody">
                                                 <!-- <tr>
                                                     <td>5</td>
                                                     <td>30</td>
@@ -208,7 +225,7 @@
                     <p class="copyright pull-right">
                         &copy;
                         <script>
-                            document.write(new Date().getFullYear())
+                            document.write(new Date().getFullYear())；
                         </script>
 
                     </p>
@@ -228,6 +245,7 @@
     <!-- Forms Validations Plugin -->
     <script src="assets/vendors/jquery.validate.min.js"></script>
     <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+    <script src="assets/vendors/moment.min.js"></script>
 
     <script src="assets/js/table.js"></script>
 
@@ -255,14 +273,14 @@
     <script src="assets/vendors/jquery.datatables.js"></script>
     <!-- Sweet Alert 2 plugin -->
     <script src="assets/vendors/sweetalert/js/sweetalert2.min.js"></script>
-    <!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+
     <script src="assets/vendors/jasny-bootstrap.min.js"></script>
 
     <!-- TagsInput Plugin -->
     <script src="assets/vendors/jquery.tagsinput.js"></script>
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/amaze.js"></script>
-    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+
     <script src="assets/js/demo.js"></script>
 
     <script src="assets/js/charts/chartjs-charts.js"></script>
